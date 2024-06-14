@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Project one</title>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="(name, index) in names">
+                {{name}} : {{index}}
+            </li>
+        </ul>
+        <hr />
+        <ul>
+            <li v-for="(car, index) in cars">
+                {{car.brand}}-{{car.color}} : {{index}}
+            </li>
+        </ul>
+        <hr />
+        <ul>
+            <li v-for="(key, value, index) in user">
+                {{index}} - {{key}} : {{ value}}
+            </li>
+        </ul>
+    </div>
+</body>
+<script>
+    const { createApp, ref } = Vue
+    createApp({
+        setup() {
+            const names = ref(['Francis', 'Jane', 'Steve'])
+            const cars = ref([
+                { brand: 'Ford', color: 'red' },
+                { brand: 'Chevy', color: 'blue' },
+                { brand: 'Nissan', color: 'gray' }
+            ])
+            const user = {
+                name: 'Francis',
+                lastname: 'Jones',
+                age: 24,
+            }
+
+            return {
+                names,
+                cars,
+                user
+            }
+
+        },
+    }).mount("#app")
+</script>
+
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Project one</title>
+</head>
+
+<body>
+    <div id="app">
+        <p>Value: {{count}}</p>
+        {{changeValue()}}
+
+        <p>Name: {{user.name}}</p>
+        <p>Age: {{user.age}}</p>
+        {{updateAge()}}
+        <p>Age: {{userReactive.age}}</p>
+        {{updateAgeReactive()}}
+
+
+
+    </div>
+</body>
+<script>
+    const { createApp, ref, reactive } = Vue
+    createApp({
+        setup() {
+            /**
+             * ref is wrapped over what you want to be reactive
+             * **/
+            let count = ref(0)
+            let user = ref({
+                name: 'Francis',
+                occupation: 'DEV',
+                age: 18
+            })
+            let userReactive = reactive({
+                //useful for big objects
+                name: 'Francis',
+                occupation: 'DEV',
+                age: 18
+            })
+
+            function changeValue() {
+                setTimeout(() => {
+                    count.value = 1
+
+                }, 3000)
+            }
+
+            function updateAge() {
+                setTimeout(() => {
+                    user.value.age = 20
+
+                }, 3000)
+            }
+
+            function updateAgeReactive() {
+                setTimeout(() => {
+                    //no need for .value
+                    userReactive.age = 20
+
+                }, 3000)
+            }
+
+            return {
+                count,
+                changeValue,
+                user,
+                updateAge,
+                userReactive,
+                updateAgeReactive
+
+            }
+
+        },
+    }).mount("#app")
+</script>
+
+</html>

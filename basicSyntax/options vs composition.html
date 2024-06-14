@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Project one</title>
+</head>
+
+<body>
+    <div id="app">
+        <p>{{ message() }}</p>
+        <p>{{ welcome() }}</p>
+
+
+
+
+    </div>
+</body>
+<script>
+    const { createApp } = Vue
+    createApp({
+        /** 
+         * composition API
+         * allows you to logically group code by functionality rather than by options.
+         * You can create reusable logic as composition functions that can be easily shared across multiple components.
+         * It promotes better code organization, reusability, and code readability, especially for large-scale applications.
+         * You can extract shared logic into standalone functions and then import and use these functions across multiple components.
+         * **/
+        setup() {
+            const date = new Date().toLocaleDateString()
+            const greetings = "Hello guys, today is " + date
+            const isItTrue = true
+            const array = ['Francis', 'Jane']
+            const obj = { car: 'Ford' }
+
+            //functions
+            const message = () => {
+                const randName = array[Math.floor(Math.random() * array.length)]
+
+                if (isItTrue) {
+                    return `${greetings}, my name is ${randName}`
+                }
+                return obj.car
+            }
+
+            return {
+
+                message
+            }
+        },
+        /** 
+        * options API
+        * Components are defined using a set of options like data, methods, computed, watch, etc., inside a single object.
+        * The code is organized based on the lifecycle hooks of the component.
+        * If you want to reuse a method across multiple components, you would typically define it within the methods object of each component where you need it. This can lead to code duplication.
+        * **/
+        methods: {
+            welcome() {
+                return "Hello guys"
+            }
+        }
+    }).mount("#app")
+</script>
+
+</html>

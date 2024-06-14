@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Project one</title>
+</head>
+
+<body>
+    <div id="app">
+        <input v-model="data.user" />
+        <button v-on:click="toggleActive">Other action</button>
+        <hr />
+        <div>
+            Message: {{message}}
+        </div>
+        <div>
+            Active: {{ isActive }}
+        </div>
+    </div>
+</body>
+<script>
+    const { createApp, ref, computed } = Vue
+    createApp({
+
+        setup() {
+            const data = ref({
+                user: '',
+                active: ''
+            })
+
+            /** 
+             * avoid calling functions that you don't want to run multiple times.
+             * triggers only if the value changes.
+             * computed properties are getters; can mutate state if needed, but not recommended.
+             * **/
+            const message = computed(() => {
+                console.log('MESSAGE - TRIGGERED')
+                return data.value.user === 'Francis' ? 'Welcome' : 'Not Allowed'
+            })
+
+            const isActive = computed(() => {
+                console.log('ACTIVE - TRIGGERED')
+                return data.value.active ? 'Active' : 'Not Active'
+            })
+
+            // const message = () => {
+            //     //Unnecessary firing when other func are called
+            //     console.log('MESSAGE - TRIGGERED')
+            //     return data.value.user === 'Francis' ? 'Welcome' : 'Not Allowed'
+            // }
+            // const isActive = () => {
+            //     console.log('ACTIVE - TRIGGERED')
+            //     return data.value.active ? 'Active' : 'Not Active'
+            // }
+
+            const toggleActive = () => {
+                data.value.active = !data.value.active
+            }
+            return { data, message, isActive, toggleActive }
+        },
+
+    }).mount("#app")
+</script>
+
+</html>
